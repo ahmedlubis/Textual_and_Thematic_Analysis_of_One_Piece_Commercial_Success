@@ -1,61 +1,244 @@
-# 🏴‍☠️ Decoding the Phenomenon: Textual and Thematic Analysis of *One Piece*’s Commercial Success
+# 🏴‍☠️ One Piece NLP Analysis
 
-> An NLP-driven investigation into why Eiichiro Oda's magnum opus remains the undisputed best-selling manga of all time.
+An NLP project exploring **themes, recurring concepts, and sentiment in reader discussions about *One Piece*** using TF-IDF keyword extraction and VADER sentiment analysis.
 
----
+## 🎯 Problem
 
-## 📌 Background
+Why do readers repeatedly highlight certain narrative elements when discussing *One Piece*?
 
-Created by Eiichiro Oda and serialized in *Weekly Shōnen Jump* since July 1997, ***One Piece*** is the highest-selling manga series in history, boasting over **500+ million copies in circulation worldwide**. It holds the official Guinness World Record for the *"most copies published for the same comic book series by a single author"*.
+This project explores the textual patterns within reader discussions to identify:
 
-While traditional publishing metrics track volume sales, understanding *why* the narrative retains millions of dedicated readers across nearly three decades requires a deeper look into text-level dynamics. By applying quantitative NLP tools to reader discussions, reviews, and critical synopses, this project analyzes the thematic resonance, emotional sentiment, and structural pillars underlying its historic longevity.
+* Frequently emphasized narrative concepts
+* Recurring themes and phrases
+* Overall sentiment toward the series
+* Emotional and thematic patterns in reader feedback
 
----
+> **Scope:** This project analyzes textual patterns in a small sample of reader discussions. It does not establish causal relationships between narrative features and commercial sales.
 
-## 🎯 Goal
+## 📊 Dataset
 
-To empirically identify the primary factors driving *One Piece*'s commercial dominance and reader retention using **Natural Language Processing (NLP)** techniques—specifically **TF-IDF (Term Frequency-Inverse Document Frequency)** keyword extraction and **VADER Sentiment Analysis**.
+The analysis uses a small manually curated corpus of **8 reader discussion/review texts** focused on *One Piece*.
 
----
+The texts discuss topics such as:
 
-## 🔍 Analysis Framework
+* World-building
+* Foreshadowing
+* Freedom
+* Found family / Nakama
+* Character development
+* Backstories
+* Longevity
+* Political and social themes
 
-Through textual mining and qualitative analysis, four core narrative pillars emerge as the primary engines of engagement:
+The corpus is embedded directly in the notebook as a Python list.
 
-1. **World-Building & Foreshadowing:** Sprawling geography, interconnected geopolitical factions (World Government, Pirates, Revolutionary Army), and long-term narrative payoffs decades in the making.
-2. **Emotional Resonance & Philosophy:** Core themes built around freedom, found family (*Nakama*), inherited willpower, and tragic resilience.
-3. **Character Progression:** Deep, empathetic backstories paired with consistent character motivations across 1,000+ chapters.
-4. **Intergenerational Retention:** Uninterrupted serialization quality that builds lifelong loyalty across multiple generations of readers.
+### Dataset Characteristics
 
----
+| Attribute        | Description                             |
+| ---------------- | --------------------------------------- |
+| Corpus size      | 8 text samples                          |
+| Content type     | Reader discussions / review-style texts |
+| Language         | English                                 |
+| Unit of analysis | Individual review                       |
+| Target           | No predefined target variable           |
+| Analysis type    | Unsupervised text analysis              |
 
-## 📊 Results & Key Findings
+## 🔬 Method
 
-### 1. Top Narrative Drivers (TF-IDF Weight)
-Textual analysis of reader feedback highlights narrative craftsmanship and thematic substance as the top factors over standard action tropes:
+The project follows a basic NLP pipeline.
 
-| Rank | Keyword / Phrase | TF-IDF Score | Primary Driver Category |
-| :---: | :--- | :---: | :--- |
-| **1** | `world building` | **0.285** | Lore depth & geographical complexity |
-| **2** | `freedom` | **0.241** | Core philosophy & character motivation |
-| **3** | `foreshadowing` | **0.218** | Plot cohesion & long-term narrative payoff |
-| **4** | `found family / nakama` | **0.204** | Emotional attachment & character dynamics |
-| **5** | `longevity / consistency` | **0.189** | Quality retention over 25+ years |
-| **6** | `backstories` | **0.176** | Emotional investment & stakes |
+### 1. Text Preprocessing
 
-### 2. Sentiment Metrics
-* **Average Compound Score:** `+0.78` (Strongly Positive)
-* **Emotional Markers:** High positive sentiment scores strongly correlate with reader discussions surrounding *world-building* (awe/wonder), *liberation* (inspiration), and *backstories* (empathy/catharsis).
+Each text is:
 
-### 3. Visual Analysis
-![Textual_and_Thematic_Analysis_of_One_Piece_Commercial_Success](./visualization.png)
+* Converted to lowercase
+* Stripped of punctuation and numbers
+* Tokenized
+* Filtered using English stopwords
 
----
+The cleaned corpus is then used for downstream text analysis.
+
+### 2. TF-IDF Analysis
+
+**TF-IDF (Term Frequency–Inverse Document Frequency)** is used to identify words and phrases that are relatively important within the corpus.
+
+The analysis uses:
+
+* Unigrams
+* Bigrams
+* English stopword removal
+
+The mean TF-IDF score across documents is then used to rank the most prominent terms.
+
+### 3. Sentiment Analysis
+
+**VADER (Valence Aware Dictionary and sEntiment Reasoner)** is used to estimate sentiment for each review.
+
+The analysis records:
+
+* Positive sentiment
+* Negative sentiment
+* Compound sentiment score
+
+Compound scores range from **-1 to +1**, where higher values indicate more positive sentiment.
+
+### 4. Thematic Interpretation
+
+The highest-weighted terms are interpreted qualitatively to identify broader narrative themes.
+
+This combines:
+
+**Quantitative NLP → Keyword extraction → Qualitative thematic interpretation**
+
+## 📈 Results
+
+### 1. Dominant Themes
+
+The highest-ranked TF-IDF terms in the analysis are:
+
+| Rank | Keyword / Phrase          | TF-IDF Score | Interpreted Theme       |
+| ---: | ------------------------- | -----------: | ----------------------- |
+|    1 | `world building`          |        0.285 | World-building          |
+|    2 | `freedom`                 |        0.241 | Philosophy / motivation |
+|    3 | `foreshadowing`           |        0.218 | Long-term storytelling  |
+|    4 | `found family / nakama`   |        0.204 | Relationships           |
+|    5 | `longevity / consistency` |        0.189 | Long-term engagement    |
+|    6 | `backstories`             |        0.176 | Emotional storytelling  |
+
+These results suggest that the sampled discussions place substantial emphasis on **world-building, thematic ideas, long-term narrative connections, relationships, and character backstories**.
+
+### 2. Sentiment
+
+The reported average compound sentiment score is approximately:
+
+**+0.78**
+
+This indicates that the sampled reviews are strongly positive in tone.
+
+The individual reviews also show positive sentiment around topics such as:
+
+* World-building
+* Freedom
+* Character relationships
+* Backstories
+* Long-term storytelling
+
+The VADER analysis is calculated individually for each of the eight texts.
+
+### 3. Main Thematic Pattern
+
+The analysis suggests three broad themes:
+
+**🌍 Narrative Complexity**
+
+World-building and foreshadowing appear prominently in the sampled discussions.
+
+**❤️ Emotional Connection**
+
+Readers frequently discuss character backstories, found family, and emotional experiences.
+
+**🧭 Thematic Ideas**
+
+Concepts such as freedom, liberation, and inherited will appear as recurring discussion points.
+
+## 📊 Visualization
+
+The notebook combines two visualizations:
+
+### TF-IDF Keyword Importance
+
+A horizontal bar chart ranks the most prominent words and phrases according to their mean TF-IDF scores.
+
+### Reader Sentiment
+
+A second bar chart displays the VADER compound sentiment score for each sampled review.
+
+![One Piece Text Analysis](visualization.png)
+
+The notebook generates the visualization as a high-resolution image for further use.
 
 ## 💡 Conclusion
 
-The text analysis demonstrates that ***One Piece*’s position as the best-selling manga of all time is driven by three distinct narrative multipliers:**
+The NLP analysis identifies several recurring themes in the sampled *One Piece* reader discussions.
 
-1. **Unrivaled World-Building & Foreshadowing:** Oda constructs an interconnected world where details mentioned hundreds of chapters prior pay off years later, rewarding re-reads and fostering active fan theories.
-2. **Thematic Depth Over Power Scaling:** Rather than relying solely on power escalation, the story grounds itself in universal human themes—liberation, opposing oppression, found families, and inherited dreams.
-3. **Generational Retention:** Exceptional publication consistency keeps original 1997 readers engaged while continuously attracting new generations, multiplying its cumulative sales base exponentially over time.
+### Key Takeaways
+
+**1. World-building is highly prominent.**
+
+Terms related to world-building and interconnected storytelling receive high TF-IDF weights.
+
+**2. Freedom is an important recurring concept.**
+
+The theme appears repeatedly in discussions of Luffy, character motivation, and the broader narrative.
+
+**3. Emotional storytelling is central to reader discussions.**
+
+Backstories and found-family relationships appear among the prominent themes.
+
+**4. The sampled corpus is strongly positive.**
+
+The average VADER compound score of approximately **+0.78** indicates a strongly positive sentiment profile.
+
+### Important Limitation
+
+The findings should **not** be interpreted as proof that these narrative characteristics caused *One Piece*'s commercial success.
+
+The corpus contains only **8 manually constructed texts**, and the analysis does not include:
+
+* Actual manga sales by chapter or volume
+* Reader population data
+* A control group
+* Longitudinal reader data
+* Comparison with other manga
+* Statistical testing of commercial outcomes
+
+Therefore, the project is best understood as an **exploratory NLP and thematic-analysis study** rather than a causal explanation of commercial success.
+
+## 🚀 Future Improvements
+
+A stronger version of this project could:
+
+* Collect thousands of authentic reviews
+* Scrape publicly available Reddit/forum discussions where permitted
+* Compare *One Piece* with other major manga
+* Perform topic modeling with LDA or BERTopic
+* Analyze sentiment over time
+* Track themes by manga arc
+* Compare narrative themes with sales data
+* Build a supervised model for review classification
+* Use word embeddings or transformer-based models
+
+A particularly interesting extension would be:
+
+> **Narrative Themes × Reader Sentiment × Manga Sales**
+
+This would connect the current NLP analysis with your separate manga-market-analysis project.
+
+## 🛠️ Technologies
+
+* **Python**
+* **Pandas** — data manipulation
+* **NumPy** — numerical computation
+* **NLTK** — text processing and VADER sentiment
+* **Scikit-learn** — TF-IDF feature extraction
+* **Matplotlib** — visualization
+* **Seaborn** — visualization
+* **Jupyter Notebook** — analysis
+
+### Methods
+
+`Natural Language Processing` `TF-IDF` `Sentiment Analysis` `VADER` `Text Mining` `Thematic Analysis` `Feature Extraction`
+
+## 📁 Repository Structure
+
+```text
+one-piece-nlp-analysis/
+│
+├── one-piece-nlp-analysis.ipynb
+├── visualization.png
+└── README.md
+```
+
+## 📌 Topics
+
+`Python` `NLP` `Natural Language Processing` `Text Mining` `TF-IDF` `Sentiment Analysis` `VADER` `Manga` `One Piece` `Data Analysis` `Data Visualization`
